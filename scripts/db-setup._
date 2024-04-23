@@ -1,0 +1,21 @@
+
+
+set PGUSER = sve
+set PGPASSWORD = 123
+set PGHOST = localhost
+set PGPORT = 5433
+# set PGDATABASE = inventory
+
+psql -h "$PGHOST" -p "$PGPORT" -U "$PGUSER" -d postgres -c "CREATE ROLE IF NOT EXISTS postgres WITH LOGIN PASSWORD '123';"
+
+# Grant necessary privileges to the "postgres" role
+psql -h "$PGHOST" -p "$PGPORT" -U "$PGUSER" -d postgres -c "ALTER ROLE postgres CREATEDB;"
+
+# Create the "inventory" database if it doesn't exist
+psql -h "$PGHOST" -p "$PGPORT" -U "$PGUSER" -d postgres -c "CREATE DATABASE IF NOT EXISTS inventory;"
+
+# Add the "uuid-ossp" extension to the "inventory" database
+psql -h "$PGHOST" -p "$PGPORT" -U "$PGUSER" -d inventory -c "CREATE EXTENSION IF NOT EXISTS \"uuid-ossp\";"
+
+# Print a success message
+echo "Database setup completed."
