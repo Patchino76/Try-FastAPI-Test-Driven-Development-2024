@@ -16,7 +16,7 @@ but in env.py the meatdata should be also set before:
 from app import models
 target_metadata = models.Base.metadata
 
-4.  run: alembic -n devdb upgrade head
+4.  run: ``alembic -n devdb upgrade head``
     Remember (-n devdb) specifies alembic to use the [devdb] engine
 
 docker-compose:

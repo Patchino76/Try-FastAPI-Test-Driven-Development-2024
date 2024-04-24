@@ -9,7 +9,7 @@ def is_the_container_ready(container): #this function checks if the container is
     container.reload() #fetching the latest info about the container
     return container.status == "running"
 
-def wait_for_stable_status(container, stable_duration_seconds = 10, interval=1):
+def wait_for_stable_status(container, stable_duration_seconds = 11, interval=1):
     counter = 0
     while container.status == "running" and counter < stable_duration_seconds:
         time.sleep(interval)

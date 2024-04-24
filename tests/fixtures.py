@@ -3,6 +3,7 @@ import pytest
 import os
 from utils.docker_utils import start_db_container
 from utils.database_utils import migrate_to_db
+from sqlalchemy.orm import sessionmaker
 
 
 
@@ -16,4 +17,11 @@ def db_session():
     with engine.begin() as connection:
         # print(connection)
         migrate_to_db(connection=connection)
+        
+    SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+    yield SessionLocal
+    
+    # container.stop()
+    # container.remove()
+    engine.dispose()
         
